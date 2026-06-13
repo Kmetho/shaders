@@ -1,6 +1,7 @@
 import "./style.css";
 import { initInteraction } from "./interaction";
 import { initAudio, type AudioSystem, type AudioBands } from "./audio";
+import { renderer, camera, scene } from "./scene";
 
 const startScreen = document.getElementById("start-screen")!;
 
@@ -16,6 +17,7 @@ async function begin(): Promise<void> {
 startScreen.addEventListener("click", () => void begin(), { once: true });
 
 // todo in: plan.md -› Scaffold Reference
+renderer.render(scene, camera);
 
 const SILENCE: AudioBands = { bass: 0, mid: 0, high: 0 };
 
