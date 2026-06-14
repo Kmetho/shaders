@@ -13,4 +13,6 @@ const material = new THREE.ShaderMaterial({
   },
 });
 
+export const terrainMaterial = material;
+
 export const terrainMesh = new THREE.Mesh(terrain, material);
