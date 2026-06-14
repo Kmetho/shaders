@@ -16,9 +16,6 @@ async function begin(): Promise<void> {
 
 startScreen.addEventListener("click", () => void begin(), { once: true });
 
-// todo in: plan.md -› Scaffold Reference
-renderer.render(scene, camera);
-
 const SILENCE: AudioBands = { bass: 0, mid: 0, high: 0 };
 
 function animate(): void {
@@ -28,7 +25,7 @@ function animate(): void {
   const bands = audio ? audio.getBands() : SILENCE;
   void bands;
 
-  // composer.render();
+  renderer.render(scene, camera);
 }
 
 animate();
