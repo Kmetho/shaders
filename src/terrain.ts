@@ -10,6 +10,9 @@ const material = new THREE.ShaderMaterial({
   fragmentShader,
   uniforms: {
     uTime: { value: 0 },
+    uBass: { value: 0 },
+    uMid: { value: 0 },
+    uHigh: { value: 0 },
   },
 });
 

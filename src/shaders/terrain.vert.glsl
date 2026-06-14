@@ -1,7 +1,7 @@
+varying float vElevation;
+varying vec2 vUV;
 uniform float uTime;
 uniform float uBass;
-uniform float uMid;
-uniform float uHigh;
 
 vec2 hash2(vec2 p) {
     p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
@@ -28,8 +28,10 @@ float fbm(vec2 p) {
 }
 
 void main() {
+    vUV = uv;
     vec3 pos = position;
     float n = fbm(pos.xz * 1.2 + uTime * 0.08);
-    pos.y += n * 0.4;   // constant height for now; uBass takes over in Step 5
+    pos.y += n * (0.4 + uBass * 1.2);
+    vElevation = pos.y;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }

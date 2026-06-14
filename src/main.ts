@@ -27,7 +27,9 @@ function animate(): void {
 
   pointer.update();
   const bands = audio ? audio.getBands() : SILENCE;
-  void bands;
+  terrainMaterial.uniforms.uBass.value = bands.bass;
+  terrainMaterial.uniforms.uMid.value = bands.mid;
+  terrainMaterial.uniforms.uHigh.value = bands.high;
 
   terrainMaterial.uniforms.uTime.value = clock.getElapsed();
 
