@@ -2,6 +2,7 @@ varying float vElevation;
 varying vec2 vUV;
 uniform float uTime;
 uniform float uBass;
+uniform vec2 uMouse;
 
 vec2 hash2(vec2 p) {
     p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
@@ -28,10 +29,15 @@ float fbm(vec2 p) {
 }
 
 void main() {
-    vUV = uv;
     vec3 pos = position;
     float n = fbm(pos.xz * 1.2 + uTime * 0.08);
-    pos.y += n * (0.4 + uBass * 1.2);
+    float displacement = n * (0.4 + uBass * 1.2);
+    float dist = length(pos.xz - uMouse * 4.0);
+    displacement += smoothstep(2.0, 0.0, dist) * 0.3;
+
+    vUV = uv;
+
+    pos.y += displacement;
     vElevation = pos.y;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }

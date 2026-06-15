@@ -13,6 +13,7 @@ const material = new THREE.ShaderMaterial({
     uBass: { value: 0 },
     uMid: { value: 0 },
     uHigh: { value: 0 },
+    uMouse: { value: new THREE.Vector2(0, 0) },
   },
 });
 

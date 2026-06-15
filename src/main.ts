@@ -26,6 +26,11 @@ function animate(): void {
   requestAnimationFrame(animate);
 
   pointer.update();
+  terrainMaterial.uniforms.uMouse.value.set(
+    pointer.smoothed.x,
+    -pointer.smoothed.y,
+  );
+
   const bands = audio ? audio.getBands() : SILENCE;
   terrainMaterial.uniforms.uBass.value = bands.bass;
   terrainMaterial.uniforms.uMid.value = bands.mid;
