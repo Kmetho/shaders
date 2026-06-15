@@ -12,7 +12,14 @@ const pointer = initInteraction();
 let audio: AudioSystem | null = null;
 
 async function begin(): Promise<void> {
-  audio = await initAudio();
+  try {
+    audio = await initAudio();
+  } catch (err) {
+    console.warn(
+      "Microphone unavailable — running without audio reactivity.",
+      err,
+    );
+  }
   startScreen.classList.add("hidden");
 }
 

@@ -41,6 +41,8 @@ canvas {
   position: fixed;
   inset: 0;
   display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   align-items: center;
   justify-content: center;
   background: var(--bg);

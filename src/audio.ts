@@ -17,29 +17,27 @@ function average(data: Uint8Array, start: number, end: number): number {
   return sum / (end - start) / 255;
 }
 
-export async function initAudio(
-  url = "/audio/audio.mp3",
-): Promise<AudioSystem> {
+export async function initAudio(): Promise<AudioSystem> {
   const context = new AudioContext();
   if (context.state === "suspended") {
     await context.resume();
   }
 
-  const response = await fetch(url);
-  const arrayBuffer = await response.arrayBuffer();
-  const decoded = await context.decodeAudioData(arrayBuffer);
+  const stream = await navigator.mediaDevices.getUserMedia({
+    audio: {
+      echoCancellation: false,
+      noiseSuppression: false,
+      autoGainControl: false,
+    },
+  });
 
-  const source = context.createBufferSource();
-  source.buffer = decoded;
-  source.loop = true;
+  const source = context.createMediaStreamSource(stream);
 
   const analyser = context.createAnalyser();
   analyser.fftSize = 256;
   analyser.smoothingTimeConstant = 0.85;
 
   source.connect(analyser);
-  analyser.connect(context.destination);
-  source.start();
 
   const data = new Uint8Array(analyser.frequencyBinCount);
 
